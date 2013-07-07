@@ -5,9 +5,9 @@ var text = '';
 
 app.get('/', function(request, response) {
 
-text = fs.readFileSync('index.html','utf-8 ');
-var buffer = new Buffer();
-var bftxt = buffer.toString('utf-8 ',0,text.length);
+text = fs.readFileSync('index.html');
+var buffer = new Buffer(256);
+var bftxt = buffer.toString('utf8 ',0,text.length);
 resonse.send(bftxt);
 //console.log(bftxt);
 
