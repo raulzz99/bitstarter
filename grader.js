@@ -56,7 +56,7 @@ program
 
  if(program.url){
 
-     rest.get(program.url).on('complete',function(result,response){ fs.writeFile(program.file,result,function(err){if(err){console.log(err);}else{console.log("The file was saved");}
+     rest.get(program.url.toString()).on('complete',function(result,response){ fs.writeFile(program.file,result,function(err){if(err){console.log(err);}else{console.log("The file was saved");}
      });
      console.log(program.file);
      var checkJson = checkHtmlFile(program.file,program.checks);
