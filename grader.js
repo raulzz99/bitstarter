@@ -43,6 +43,18 @@ var clone =  function(fn){
     fn.bind({});
  };
 
+var build = function(HTTMLFILE_DEFAULT,CHECKSFILE_DEFAULT){
+
+    var response2url = function(result,response){
+    if (result instanceof Error) {console.error('Error:');}
+    else{
+	fs.writeFileSync(HTMLFILE_DEFAULT,result);
+	var checkJson = checkHtmlFile(HTTMLFILE_DEFAULT,CHECKSFILE_DEFAULT);
+     var outJson = JSON.stringify(checkJson, null, 4);
+      console.log(outJson);}
+    };
+   return response2url;
+ };
 
 
 if(require.main == module){
@@ -55,13 +67,13 @@ program
     //var apiurl = program.url.toString() || URL_DEFAULT;
 
  if(program.url){
-
-     rest.get(program.url.toString()).on('complete',function(result,response){ fs.writeFile(program.file,result,function(err){if(err){console.log(err);}else{console.log("The file was saved");}
-     });
-     console.log(program.file);
-     var checkJson = checkHtmlFile(program.file,program.checks);
-     var outJson = JSON.stringify(checkJson, null, 4);
-      console.log(outJson);});
+     var apiurl  = program.url.toString();
+     var response2url = build(HTMLFILE_DEFAULT,CHECKSFILE_DEFAULT);
+     rest.get(apiurl).on('complete',response2url);
+     //console.log(program.file);
+     //var checkJson = checkHtmlFile(program.file,program.checks);
+     //var outJson = JSON.stringify(checkJson, null, 4);
+     //console.log(outJson);});
  }
  else{
  var checkJson = checkHtmlFile(program.file, program.checks);
