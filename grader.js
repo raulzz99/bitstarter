@@ -48,10 +48,11 @@ var build = function(HTTMLFILE_DEFAULT,CHECKSFILE_DEFAULT){
     var response2url = function(result,response){
     if (result instanceof Error) {console.error('Error:');}
     else{
-	fs.writeFileSync(HTMLFILE_DEFAULT,result);
-	var checkJson = checkHtmlFile(HTTMLFILE_DEFAULT,CHECKSFILE_DEFAULT);
+     fs.writeFileSync(HTMLFILE_DEFAULT,result);
+     var checkJson = checkHtmlFile(HTTMLFILE_DEFAULT,CHECKSFILE_DEFAULT);
      var outJson = JSON.stringify(checkJson, null, 4);
-      console.log(outJson);}
+     fs.writeFileSync('output.txt',outJson,'utf-8');
+     console.log(outJson);}
     };
    return response2url;
  };
@@ -76,9 +77,10 @@ program
      //console.log(outJson);});
  }
  else{
- var checkJson = checkHtmlFile(program.file, program.checks);
- var outJson = JSON.stringify(checkJson, null, 4);
- console.log(outJson);
+     var checkJson = checkHtmlFile(program.file, program.checks);
+     var outJson = JSON.stringify(checkJson, null, 4);
+     fs.writeFileSync('output.json',outJson);
+     console.log(outJson);
  }
 
 }
